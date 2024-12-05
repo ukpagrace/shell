@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +12,8 @@ public class Main {
             String input = scanner.nextLine();
 
             ArrayList<String> commands = new ArrayList<>();
+            String path = args[0].substring(5);
+            String[] pathArray = path.split(":");
 
             if(input.equals("exit 0")){
                     break;
@@ -19,11 +22,21 @@ public class Main {
                 commands.add("echo");
                 commands.add("type");
                 String command = input.substring(5);
-                if(commands.contains(command)){
-                    System.out.print(input.substring(5) + " is a shell builtin\n");
-                }else{
-                    System.out.print(input.substring(5) + ": not found\n");
+                Boolean[] found = {false};
+                Arrays.asList(pathArray).forEach(element -> {
+                    if(element.endsWith(command)){
+                        System.out.println(command + " is " + element);
+                        found[0] = true;
+                    }
+                });
+                if(!found[0]){
+                    if(commands.contains(command)){
+                        System.out.print(input.substring(5) + " is a shell builtin\n");
+                    }else{
+                        System.out.print(input.substring(5) + ": not found\n");
+                    }
                 }
+
 
             }else if(input.startsWith("echo")){
                 System.out.print(input.substring(5) + "\n");
