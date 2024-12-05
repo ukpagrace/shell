@@ -31,6 +31,7 @@ public class Main {
 
                     if(files != null){
                         for(File file: files){
+                            System.out.println(file);
                             if(file.getName().equals(command)){
                                 System.out.println(command + " is " + file );
                                 found[0] = true;
