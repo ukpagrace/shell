@@ -11,8 +11,9 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
+
             ArrayList<String> commands = new ArrayList<>();
-            String path = args[0].substring(5);
+            String path = System.getenv("PATH").substring(5);
             String[] pathArray = path.split(":");
 
             if(input.equals("exit 0")){
