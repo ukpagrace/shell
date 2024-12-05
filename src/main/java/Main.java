@@ -22,7 +22,7 @@ public class Main {
                 if(commands.contains(command)){
                     System.out.print(input.substring(5) + " is a shell builtin\n");
                 }else{
-                    System.out.print(input.substring(5) + ": command not found\n");
+                    System.out.print(input.substring(5) + ": not found\n");
                 }
 
             }else if(input.startsWith("echo")){
