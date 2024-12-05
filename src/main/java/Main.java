@@ -3,10 +3,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
-         System.out.print("$ ");
+        while(true){
+            System.out.print("$ ");
 
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        System.out.print(input + ": command not found\n");
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+            System.out.print(input + ": command not found\n");
+        }
+
     }
 }
