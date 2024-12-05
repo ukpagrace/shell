@@ -19,7 +19,7 @@ public class Main {
                 commands.add("echo");
                 String command = input.substring(5);
                 if(commands.contains(command)){
-                    System.out.print(input.substring(5) + " is a shell builtin \n");
+                    System.out.print(input.substring(5) + " is a shell builtin\n");
                 }else{
                     System.out.print(input.substring(5) + ": command not found\n");
                 }
