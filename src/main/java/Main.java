@@ -1,3 +1,5 @@
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,7 +18,6 @@ public class Main {
             String input = scanner.nextLine();
 
             String path = System.getenv("PATH").substring(5);
-            System.out.println(path);
             String[] pathArray = path.split(":");
 
             if(input.equals("exit 0")){
@@ -25,9 +26,16 @@ public class Main {
                 String command = input.substring(5);
                 Boolean[] found = {false};
                 Arrays.asList(pathArray).forEach(element -> {
-                    if(element.endsWith(command)){
-                        System.out.println(command + " is " + element);
-                        found[0] = true;
+                    File directory = new File(element);
+                    File[] files = directory.listFiles();
+
+                    if(files != null){
+                        for(File file: files){
+                            if(file.getName().endsWith(command)){
+                                System.out.println(command + " is " + element);
+                                found[0] = true;
+                            }
+                        }
                     }
                 });
                 if(!found[0]){
