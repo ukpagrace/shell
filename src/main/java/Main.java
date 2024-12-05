@@ -8,7 +8,16 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            System.out.print(input + ": command not found\n");
+
+
+            if(input.contains("exit")){
+                String[] myArray = input.split(" ");
+                if(myArray.length == 2){
+                    System.exit(Integer.parseInt(myArray[1]));
+                }
+            }else{
+                System.out.print(input + ": command not found\n");
+            }
         }
 
     }
