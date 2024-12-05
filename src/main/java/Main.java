@@ -32,7 +32,7 @@ public class Main {
                     if(files != null){
                         for(File file: files){
                             if(file.getName().endsWith(command)){
-                                System.out.println(command + " is " + element);
+                                System.out.println(command + " is " + file + "\n");
                                 found[0] = true;
                             }
                         }
