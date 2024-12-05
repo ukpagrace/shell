@@ -32,7 +32,7 @@ public class Main {
                     if(files != null){
                         for(File file: files){
                             if(file.getName().equals(command)){
-                                System.out.println(command + " is " + file + "\n");
+                                System.out.println(command + " is " + file );
                                 found[0] = true;
                             }
                         }
@@ -40,9 +40,9 @@ public class Main {
                 });
                 if(!found[0]){
                     if(commands.contains(command)){
-                        System.out.print(input.substring(5) + " is a shell builtin\n");
+                        System.out.println(input.substring(5) + " is a shell builtin");
                     }else{
-                        System.out.print(input.substring(5) + ": not found\n");
+                        System.out.println(input.substring(5) + ": not found");
                     }
                 }
 
