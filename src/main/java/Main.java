@@ -10,11 +10,11 @@ public class Main {
             String input = scanner.nextLine();
 
 
-            if(input.contains("exit")){
-                String[] myArray = input.split(" ");
-                if(myArray.length == 2){
-                    System.exit(Integer.parseInt(myArray[1]));
-                }
+            if(input.contains("exit 0")){
+                    break;
+            }
+            else if(input.contains("echo")){
+                System.out.print(input.substring(4) + "\n");
             }else{
                 System.out.print(input + ": command not found\n");
             }
