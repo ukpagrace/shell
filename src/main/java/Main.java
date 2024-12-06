@@ -33,7 +33,7 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
-
+            System.out.println(System.getenv("PATH"));
             if(Arrays.asList(pathArray).contains(command)){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
                 Process process = processBuilder.start();
