@@ -21,31 +21,35 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
-            String path = System.getenv("PATH").substring(5);
+            String path = System.getenv("PATH");
             String[] pathArray = path.split(":");
 
             if(input.equals("exit 0")){
                     break;
             }else if(input.startsWith("type")){
+                if (input.length() <= 5) {
+                    System.out.println("type: missing argument");
+                    continue;
+                }
                 command = input.substring(5);
-                Boolean[] found = {false};
+
                 Arrays.asList(pathArray).forEach(element -> {
                     File directory = new File(element);
                     recursiveAccessFile(directory);
                 });
                 if(!found[0]){
                     if(commands.contains(command)){
-                        System.out.println(input.substring(5) + " is a shell builtin");
+                        System.out.println(command + " is a shell builtin");
                     }else{
-                        System.out.println(input.substring(5) + ": not found");
+                        System.out.println(command + ": not found");
                     }
                 }
 
 
             }else if(input.startsWith("echo")){
-                System.out.print(input.substring(5) + "\n");
+                System.out.println(input.substring(5));
             }else{
-                System.out.print(input + ": command not found\n");
+                System.out.println(input + ": command not found");
             }
         }
 
@@ -57,14 +61,17 @@ public class Main {
 
         if(files != null){
             for(File file: files){
-                if(file.isDirectory()){
-                    if(file.getName().equals(command)){
-                        System.out.println(command + " is " + file );
+                    if(file.isFile() && file.getName().equals(command)){
+                        System.out.println(command + " is " + file.getAbsolutePath());
                         found[0] = true;
+                        return;
                     }
-                    recursiveAccessFile(file);
-                }
+                    if(file.isDirectory()){
+                        recursiveAccessFile(file);
+                    }
+
             }
+
         }
     }
 }
