@@ -16,7 +16,7 @@ public class Main {
         commands.add("echo");
         commands.add("type");
         while(true){
-            System.out.print("$ \n");
+            System.out.print("$ ");
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
