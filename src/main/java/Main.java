@@ -62,7 +62,6 @@ public class Main {
         if(files != null){
             for(File file: files){
                     if(file.isFile() && file.getName().equals(command)){
-                        System.out.println("print here");
                         System.out.println(command + " is " + file.getAbsolutePath());
                         found[0] = true;
                         return;
