@@ -74,6 +74,12 @@ public class Main {
                         String userDirectory = Paths.get("").toAbsolutePath().toString();
                         System.out.println(userDirectory);
                         break;
+                    case("cd"):
+                        if(getPath(parameter) != null){
+                            System.setProperty("user.dir", parameter);
+                        }else{
+                            System.out.println(command + ": " + parameter + ": No such file or directory" );
+                        }
 
                     default:
                         System.out.println(input + ": command not found");
