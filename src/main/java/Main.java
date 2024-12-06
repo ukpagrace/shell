@@ -1,17 +1,15 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
         List<String> commands = builtins();
-        String[] pathArray = System.getenv("PATH").split(":");
         while(true){
             System.out.print("$ ");
 
@@ -33,7 +31,7 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
-            if(getPath(command) != null){
+            if(getPath(command) != null && Files.isExecutable(Paths.get(Objects.requireNonNull(getPath(command))))){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
