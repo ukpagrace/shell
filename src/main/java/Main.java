@@ -1,16 +1,16 @@
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<String> commands = new ArrayList<>();
-    private static String command;
-    private static Boolean[] found = {false};
-
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
+        ArrayList<String> commands = new ArrayList<>();
+
 
         commands.add("exit");
         commands.add("echo");
@@ -21,9 +21,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
-            String path = System.getenv("PATH");
-            String[] pathArray = path.split(":");
-
             if(input.equals("exit 0")){
                     break;
             }else if(input.startsWith("type")){
@@ -31,24 +28,17 @@ public class Main {
                     System.out.println("type: missing argument");
                     continue;
                 }
-                command = input.substring(5);
-                found[0] =  false;
+                String command = input.substring(5);
                 if(commands.contains(command)){
                     System.out.print(command + " is a shell builtin\n");
-                    found[0] = true;
+                }else{
+                    String path = getPath(command);
+                    if(path != null){
+                        System.out.println(command + " is " + path);
+                    }else{
+                        System.out.println(command + ": not found");
+                    }
                 }
-                if(!found[0]){
-                    Arrays.asList(pathArray).forEach(element -> {
-                        File directory = new File(element);
-                        recursiveAccessFile(directory);
-                    });
-                }
-                if(!found[0]){
-                    System.out.print(command + ": not found\n");
-                }
-
-
-
             }else if(input.startsWith("echo")){
                 System.out.println(input.substring(5));
             }else{
@@ -58,23 +48,13 @@ public class Main {
 
     }
 
-    public static void recursiveAccessFile(File directory){
-
-        File[] files = directory.listFiles();
-
-        if(files != null){
-            for(File file: files){
-                    if(file.isFile() && file.getName().equals(command)){
-                        System.out.println(command + " is " + file.getAbsolutePath());
-                        found[0] = true;
-                        return;
-                    }
-                    if(file.isDirectory()){
-                        recursiveAccessFile(file);
-                    }
-
+    public static String getPath(String command){
+            for(String path: System.getenv("PATH").split(":")) {
+                Path file = Path.of(path, command);
+                if(Files.isRegularFile(file)){
+                    return file.toString();
+                }
             }
-
-        }
+            return null;
     }
 }
