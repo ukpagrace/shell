@@ -75,12 +75,12 @@ public class Main {
                         System.out.println(userDirectory);
                         break;
                     case("cd"):
-                        if(getPath(parameter) != null){
+                        if(Files.isDirectory(Paths.get(parameter))){
                             System.setProperty("user.dir", parameter);
-                            System.out.println("found the file");
+//                            System.out.println("found the file");
                         }else{
-                            System.out.println(getPath(parameter));
-                            System.out.println("didnt find the file");
+//                            System.out.println(getPath(parameter));
+//                            System.out.println("didnt find the file");
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
                         break;
