@@ -32,7 +32,7 @@ public class Main {
                     continue;
                 }
                 command = input.substring(5);
-
+                found[0] =  false;
                 Arrays.asList(pathArray).forEach(element -> {
                     File directory = new File(element);
                     recursiveAccessFile(directory);
@@ -62,6 +62,7 @@ public class Main {
         if(files != null){
             for(File file: files){
                     if(file.isFile() && file.getName().equals(command)){
+                        System.out.println("print here");
                         System.out.println(command + " is " + file.getAbsolutePath());
                         found[0] = true;
                         return;
