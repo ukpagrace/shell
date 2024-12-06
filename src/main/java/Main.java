@@ -32,21 +32,21 @@ public class Main {
                     continue;
                 }
                 command = input.substring(5);
-//                found[0] =  false;
+                found[0] =  false;
+                if(commands.contains(command)){
+                    System.out.print(command + " is a shell builtin\n");
+                    found[0] = true;
+                }
+                if(!found[0]){
+                    Arrays.asList(pathArray).forEach(element -> {
+                        File directory = new File(element);
+                        recursiveAccessFile(directory);
+                    });
+                }
+                if(!found[0]){
+                    System.out.print(command + ": not found\n");
+                }
 
-//                if(!found[0]){
-                    if(commands.contains(command)){
-                        System.out.print(command + " is a shell builtin\n");
-                    } else if(path.equals(" ")){
-                        Arrays.asList(pathArray).forEach(element -> {
-                            File directory = new File(element);
-                            recursiveAccessFile(directory);
-                        });
-                    }
-                    else{
-                        System.out.print(command + ": not found\n");
-                    }
-//                }
 
 
             }else if(input.startsWith("echo")){
@@ -66,7 +66,7 @@ public class Main {
             for(File file: files){
                     if(file.isFile() && file.getName().equals(command)){
                         System.out.println(command + " is " + file.getAbsolutePath());
-//                        found[0] = true;
+                        found[0] = true;
                         return;
                     }
                     if(file.isDirectory()){
