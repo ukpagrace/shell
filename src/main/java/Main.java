@@ -33,8 +33,8 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
-            System.out.println(System.getenv("PATH"));
-            if(Arrays.asList(pathArray).contains(command)){
+            System.out.println(getPath(command));
+            if(getPath(command) != null){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
