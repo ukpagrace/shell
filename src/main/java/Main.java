@@ -73,6 +73,7 @@ public class Main {
                     case("pwd"):
                         String userDirectory = Paths.get("").toAbsolutePath().toString();
                         System.out.println(userDirectory);
+                        break;
 
                     default:
                         System.out.println(input + ": command not found");
