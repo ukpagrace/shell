@@ -79,6 +79,7 @@ public class Main {
                             System.setProperty("user.dir", parameter);
                             System.out.println("found the file");
                         }else{
+                            System.out.println(getPath(parameter));
                             System.out.println("didnt find the file");
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
