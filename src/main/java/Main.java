@@ -31,8 +31,10 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
-            if(getPath(command) != null && Files.isExecutable(Paths.get(Objects.requireNonNull(getPath(command))))){
+            if(getPath(command) != null){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
+
+
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -46,6 +48,7 @@ public class Main {
                         if(parameter.equals("0")){
                             break;
                         }
+                        break;
                     case("type"):
                         if (input.length() <= 5) {
                             System.out.println("type: missing argument");
@@ -61,9 +64,10 @@ public class Main {
                                 System.out.println(parameter + ": not found");
                             }
                         }
+                        break;
                     case("echo"):
                         System.out.println(parameter);
-
+                        break;
 
                     default:
                         System.out.println(input + ": command not found");
