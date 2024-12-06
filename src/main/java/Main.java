@@ -80,7 +80,7 @@ public class Main {
                         }else{
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
-
+                        break;
                     default:
                         System.out.println(input + ": command not found");
 
