@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
@@ -46,7 +48,7 @@ public class Main {
                 switch(command){
                     case("exit"):
                         if(parameter.equals("0")){
-                            break;
+                            exit(0);
                         }
                         break;
                     case("type"):
