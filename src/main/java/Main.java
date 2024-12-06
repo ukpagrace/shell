@@ -5,9 +5,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    private static ArrayList<String> commands = new ArrayList<>();
+    private static String command;
+    private static Boolean[] found = {false};
+
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
-        ArrayList<String> commands = new ArrayList<>();
+
         commands.add("exit");
         commands.add("echo");
         commands.add("type");
@@ -23,20 +27,11 @@ public class Main {
             if(input.equals("exit 0")){
                     break;
             }else if(input.startsWith("type")){
-                String command = input.substring(5);
+                command = input.substring(5);
                 Boolean[] found = {false};
                 Arrays.asList(pathArray).forEach(element -> {
                     File directory = new File(element);
-                    File[] files = directory.listFiles();
-
-                    if(files != null){
-                        for(File file: files){
-                            if(file.getName().equals(command)){
-                                System.out.println(command + " is " + file );
-                                found[0] = true;
-                            }
-                        }
-                    }
+                    recursiveAccessFile(directory);
                 });
                 if(!found[0]){
                     if(commands.contains(command)){
@@ -54,5 +49,22 @@ public class Main {
             }
         }
 
+    }
+
+    public static void recursiveAccessFile(File directory){
+
+        File[] files = directory.listFiles();
+
+        if(files != null){
+            for(File file: files){
+                if(file.isDirectory()){
+                    if(file.getName().equals(command)){
+                        System.out.println(command + " is " + file );
+                        found[0] = true;
+                    }
+                    recursiveAccessFile(file);
+                }
+            }
+        }
     }
 }
