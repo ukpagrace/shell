@@ -16,7 +16,7 @@ public class Main {
         commands.add("echo");
         commands.add("type");
         while(true){
-            System.out.print("$ ");
+            System.out.print("$ \n");
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
@@ -41,7 +41,7 @@ public class Main {
                     if(commands.contains(command)){
                         System.out.println(command + " is a shell builtin");
                     }else{
-                        System.out.println(command + ": not found");
+                        System.out.println(command + ": not found\n");
                     }
                 }
 
