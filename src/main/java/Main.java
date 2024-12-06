@@ -39,9 +39,9 @@ public class Main {
                 });
                 if(!found[0]){
                     if(commands.contains(command)){
-                        System.out.println(command + " is a shell builtin");
+                        System.out.print(command + " is a shell builtin\n");
                     }else{
-                        System.out.println(command + ": not found");
+                        System.out.print(command + ": not found\n");
                     }
                 }
 
