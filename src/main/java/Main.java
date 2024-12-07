@@ -75,9 +75,10 @@ public class Main {
                         System.out.println(userDirectory);
                         break;
                     case("cd"):
-                        if(Files.isDirectory(Paths.get(parameter))){
-                            System.out.println("found the file" + parameter);
-                            System.setProperty("user.dir", parameter);
+                        Path uri = Paths.get(parameter);
+                        if(Files.isDirectory(uri)){
+                            System.out.println("found the file" + uri.toAbsolutePath());
+                            System.setProperty("user.dir", uri.toAbsolutePath().toString());
 
 //                            ProcessBuilder pb = new ProcessBuilder();
 //                            pb.directory(new File(parameter));
