@@ -34,7 +34,6 @@ public class Main {
                 parameter = string[1];
             }
             if(!commands.contains(command) && getPath(command) != null){
-                System.out.println(getPath(command) + " A " + input);
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
 
 
@@ -43,7 +42,7 @@ public class Main {
 
                 String line;
                 while((line = bufferedReader.readLine())!= null){
-                    System.out.println("line" + line);
+                    System.out.println(line);
                 }
             }else{
                 switch(command){
