@@ -72,8 +72,9 @@ public class Main {
                         break;
                     case("pwd"):
                         String userDirectory = System.getProperty("user.dir");
-                        System.out.println(userDirectory);
                         System.out.println("system "+ System.getProperty("user.dir"));
+//                        System.out.println(userDirectory);
+
 
                         break;
                     case("cd"):
