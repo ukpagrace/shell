@@ -77,14 +77,8 @@ public class Main {
                     case("cd"):
                         Path uri = Paths.get(parameter);
                         if(Files.isDirectory(uri)){
-                            System.out.println("found the file" + uri.toAbsolutePath());
                             System.setProperty("user.dir", uri.toAbsolutePath().toString());
-
-//                            ProcessBuilder pb = new ProcessBuilder();
-//                            pb.directory(new File(parameter));
                         }else{
-//                            System.out.println(getPath(parameter));
-//                            System.out.println("didnt find the file");
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
                         break;
