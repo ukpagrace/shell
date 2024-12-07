@@ -86,6 +86,7 @@ public class Main {
 
                         for (String s : paramArray) {
                             Path path = currentWorkingDir.resolve(s).toAbsolutePath();
+                            System.out.println("path" +  path);
 
                             if (Files.isDirectory(Path.of(path.toString()))) {
                                 System.setProperty("user.dir", new File(parameter).getAbsolutePath());
