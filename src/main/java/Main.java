@@ -33,7 +33,7 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
-            if(getPath(command) != null){
+            if(!commands.contains(command) && getPath(command) != null){
                 System.out.println(getPath(command) + " A " + input);
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
 
