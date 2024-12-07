@@ -73,14 +73,14 @@ public class Main {
                     case("pwd"):
                         String userDirectory = System.getProperty("user.dir");
                         System.out.println(userDirectory);
-                        System.out.println("system "+ System.getProperty("user.dir"));
+//                        System.out.println("system "+ System.getProperty("user.dir"));
 
                         break;
                     case("cd"):
                         if(Files.isDirectory(Paths.get(parameter))){
-                            System.setProperty("user.dir", Paths.get(parameter).toAbsolutePath().toString());
-                            System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
-                            System.out.println("system "+ System.getProperty("user.dir"));
+                            System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+//                            System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
+//                            System.out.println("system "+ System.getProperty("user.dir"));
                         }else{
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
