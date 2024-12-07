@@ -76,10 +76,11 @@ public class Main {
                         break;
                     case("cd"):
                         if(Files.isDirectory(Paths.get(parameter))){
-//                            System.setProperty("user.dir", parameter);
-//                            System.out.println("found the file");
-                            ProcessBuilder pb = new ProcessBuilder();
-                            pb.directory(new File(parameter));
+                            System.out.println("found the file" + parameter);
+                            System.setProperty("user.dir", parameter);
+
+//                            ProcessBuilder pb = new ProcessBuilder();
+//                            pb.directory(new File(parameter));
                         }else{
 //                            System.out.println(getPath(parameter));
 //                            System.out.println("didnt find the file");
