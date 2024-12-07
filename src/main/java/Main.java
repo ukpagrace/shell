@@ -72,9 +72,9 @@ public class Main {
                         System.out.println(parameter);
                         break;
                     case("pwd"):
-                        String userDirectory = Paths.get("").toAbsolutePath().toString();
-//                        System.out.println("system "+ System.getProperty("user.dir"));
-                        System.out.println(userDirectory);
+//                        String userDirectory = Paths.get("").toAbsolutePath().toString();
+                        System.out.println("system "+ System.getProperty("user.dir"));
+//                        System.out.println(userDirectory);
 
 //                        System.out.println("hello");
 
