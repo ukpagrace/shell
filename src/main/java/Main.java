@@ -79,6 +79,8 @@ public class Main {
                     case("cd"):
                         if(Files.isDirectory(Paths.get(parameter))){
                             System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+                            System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
+                            System.out.println("system "+ System.getProperty("user.dir"));
                         }else{
                             System.out.println(command + ": " + parameter + ": No such file or directory" );
                         }
