@@ -34,6 +34,7 @@ public class Main {
                 parameter = string[1];
             }
             if(getPath(command) != null){
+                System.out.println(getPath(command) + "A");
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
 
 
