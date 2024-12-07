@@ -71,14 +71,14 @@ public class Main {
                         System.out.println(parameter);
                         break;
                     case("pwd"):
-                        String userDirectory = Paths.get("").toAbsolutePath().toString();
+                        String userDirectory = System.getProperty("user.dir");
                         System.out.println(userDirectory);
                         System.out.println("system "+ System.getProperty("user.dir"));
 
                         break;
                     case("cd"):
                         if(Files.isDirectory(Paths.get(parameter))){
-                            System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+                            System.setProperty("user.dir", Paths.get(parameter).toAbsolutePath().toString());
                             System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
                             System.out.println("system "+ System.getProperty("user.dir"));
                         }else{
