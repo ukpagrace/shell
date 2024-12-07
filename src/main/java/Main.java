@@ -85,11 +85,11 @@ public class Main {
                         Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
 
                         for (String s : paramArray) {
-                            Path path = currentWorkingDir.resolve(s).toAbsolutePath();
-                            System.out.println("path" +  path);
+                            Path path = currentWorkingDir.resolve(s).toAbsolutePath().normalize();
+//                            System.out.println("path" +  path);
 
                             if (Files.isDirectory(Path.of(path.toString()))) {
-                                System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+                                System.setProperty("user.dir", path.toString());
 //                            System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
 //                            System.out.println("system "+ System.getProperty("user.dir"));
                             } else {
