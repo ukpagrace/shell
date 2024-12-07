@@ -73,7 +73,7 @@ public class Main {
                         break;
                     case("pwd"):
 //                        String userDirectory = Paths.get("").toAbsolutePath().toString();
-                        System.out.println("system "+ System.getProperty("user.dir"));
+                        System.out.println(System.getProperty("user.dir"));
 //                        System.out.println(userDirectory);
 
 //                        System.out.println("hello");
