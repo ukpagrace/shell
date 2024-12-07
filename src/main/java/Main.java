@@ -80,13 +80,31 @@ public class Main {
 
                         break;
                     case("cd"):
-                        if(Files.isDirectory(Paths.get(parameter))){
-                            System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+
+                        String[] paramArray = parameter.split(" ");
+                        Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
+
+                        for (String s : paramArray) {
+                            Path path = currentWorkingDir.resolve(s).toAbsolutePath();
+
+                            if (Files.isDirectory(Path.of(path.toString()))) {
+                                System.setProperty("user.dir", new File(parameter).getAbsolutePath());
 //                            System.out.println("absolute " + Paths.get("").toAbsolutePath().toString());
 //                            System.out.println("system "+ System.getProperty("user.dir"));
-                        }else{
-                            System.out.println(command + ": " + parameter + ": No such file or directory" );
+                            } else {
+                                System.out.println(command + ": " + parameter + ": No such file or directory");
+                            }
+//                            if(paramArray[i].startsWith("../")){
+//
+//                            }else if(paramArray[i].startsWith("./") && Files.isDirectory(Path.of(parameter))){
+//                                System.setProperty("user.dir", Path.of(paramArray[i].substring(2)).getParent().toString());
+//                            }else if(paramArray[i].startsWith("/")){
+//                                System.setProperty("user.dir", new File(parameter).getAbsolutePath());
+//                            }else{
+//
+//                            }
                         }
+
                         break;
                     default:
                         System.out.println(input + ": command not found");
