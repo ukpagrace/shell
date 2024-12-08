@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +49,7 @@ public class Main {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
                 String line;
+                System.out.println("line" + bufferedReader.readLine());
                 while((line = bufferedReader.readLine())!= null){
                     System.out.println(line);
                 }
