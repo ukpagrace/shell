@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.System.exit;
 
@@ -20,21 +21,24 @@ public class Main {
 
             String[] string = input.split(" ");
             String command = string[0];
-            StringBuilder parameter = new StringBuilder();
-            if(string.length > 2){
-                for(int i = 1; i < string.length; i++){
-                    if(!string[i].isEmpty()){
-                        if(i < string.length - 1){
-                            parameter.append(string[i]).append(" ");
-                        }else{
-                            parameter.append(string[i]);
-                        }
-                    }
+//            StringBuilder parameter = new StringBuilder();
+            String parameter = input.substring(command.length() + 1);
+//            if(string.length > 2){
+//                for(int i = 1; i < string.length; i++){
+////                    if(!string[i].isEmpty()){
+//                        if(i < string.length - 1){
+//                            parameter.append(string[i]).append(" ");
+//                        }else{
+//                            parameter.append(string[i]);
+//                        }
+////                    }
+//
+//                }
+//            }else if(string.length > 1){
+//                parameter = new StringBuilder(string[1]);
+//            }
 
-                }
-            }else if(string.length > 1){
-                parameter = new StringBuilder(string[1]);
-            }
+//            System.out.println("parameter" + parameter);
 //            System.out.println("command" + getPath(command));
             if(!commands.contains(command) && getPath(command) != null){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
@@ -74,7 +78,18 @@ public class Main {
                         if(parameter.toString().startsWith("'") && parameter.toString().endsWith("'")){
                             System.out.println(parameter.substring(1, parameter.length()-1));
                         }else{
-                            System.out.println(parameter);
+                            String[] value = parameter.split(" ");
+                            StringBuilder output = new StringBuilder();
+                            for(int i = 0; i < value.length; i++){
+                                if(!value[i].isEmpty()){
+                                    if(i < value.length - 1){
+                                        output.append(value[i]).append(" ");
+                                    }else{
+                                        output.append(value[i]);
+                                    }
+                                }
+                            }
+                            System.out.println(output.toString());
                         }
 
                         break;
