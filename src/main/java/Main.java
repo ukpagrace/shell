@@ -44,15 +44,17 @@ public class Main {
 
             if(!commands.contains(command) && getPath(command) != null){
                 System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
-                ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
-                Process process = processBuilder.start();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-                String line;
-                System.out.println("line" + bufferedReader.readLine());
-                while((line = bufferedReader.readLine())!= null){
-                    System.out.println(line);
-                }
+                Process process = Runtime.getRuntime().exec(matchList.toArray(new String[0]));
+                process.getInputStream().transferTo(System.out);
+//                ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
+//                Process process = processBuilder.start();
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//                String line;
+//                System.out.println("line" + bufferedReader.readLine());
+//                while((line = bufferedReader.readLine())!= null){
+//                    System.out.println(line);
+//                }
             }else{
                 switch(command){
                     case("exit"):
