@@ -46,7 +46,7 @@ public class Main {
 //                matchList.addFirst("-c");
 //                matchList.addFirst("sh");
 //                String[] mand = {"sh", "-c", "echo \"This is inline text\" > myfile.txt && cat myfile.txt"};
-//                System.out.println("match" + matchList.toString());
+                System.out.println("match" + String.join(",", matchList));
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
                 Process process = Runtime.getRuntime().exec(String.join(",", matchList));
