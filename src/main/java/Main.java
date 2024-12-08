@@ -43,6 +43,8 @@ public class Main {
             }
 
             if(!commands.contains(command) && getPath(command) != null){
+                matchList.addFirst("-c");
+                matchList.addFirst("bash");
                 System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
                 Process process = Runtime.getRuntime().exec(matchList.toArray(new String[0]));
                 process.getInputStream().transferTo(System.out);
