@@ -78,7 +78,10 @@ public class Main {
                         Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
 
                         Path path = currentWorkingDir.resolve(parameter).toAbsolutePath().normalize();
-                        if (Files.isDirectory(Path.of(path.toString()))) {
+                        if(parameter.equals("~")){
+                            System.setProperty("user.dir", System.getenv("HOME"));
+                        }
+                        else if (Files.isDirectory(Path.of(path.toString()))) {
                             System.setProperty("user.dir", path.toString());
                         } else {
                             System.out.println(command + ": " + parameter + ": No such file or directory");
