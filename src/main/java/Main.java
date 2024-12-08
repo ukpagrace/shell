@@ -41,6 +41,7 @@ public class Main {
 //            System.out.println("parameter" + parameter);
 //            System.out.println("command" + getPath(command));
             if(!commands.contains(command) && getPath(command) != null){
+                System.out.println("command" + getPath(command));
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
 
 
@@ -54,7 +55,7 @@ public class Main {
             }else{
                 switch(command){
                     case("exit"):
-                        if(parameter.toString().equals("0")){
+                        if(parameter.equals("0")){
                             exit(0);
                         }
                         break;
@@ -63,10 +64,10 @@ public class Main {
                             System.out.println("type: missing argument");
                             continue;
                         }
-                        if(commands.contains(parameter.toString())){
+                        if(commands.contains(parameter)){
                             System.out.print(parameter + " is a shell builtin\n");
                         }else {
-                            String path = getPath(parameter.toString());
+                            String path = getPath(parameter);
                             if (path != null) {
                                 System.out.println(parameter + " is " + path);
                             } else {
@@ -75,7 +76,7 @@ public class Main {
                         }
                         break;
                     case("echo"):
-                        if(parameter.toString().startsWith("'") && parameter.toString().endsWith("'")){
+                        if(parameter.startsWith("'") && parameter.endsWith("'")){
                             System.out.println(parameter.substring(1, parameter.length()-1));
                         }else{
                             String[] value = parameter.split(" ");
@@ -100,8 +101,8 @@ public class Main {
 
                         Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
 
-                        Path path = currentWorkingDir.resolve(parameter.toString()).toAbsolutePath().normalize();
-                        if(parameter.toString().equals("~")){
+                        Path path = currentWorkingDir.resolve(parameter).toAbsolutePath().normalize();
+                        if(parameter.equals("~")){
                             System.setProperty("user.dir", System.getenv("HOME"));
                         }
                         else if (Files.isDirectory(Path.of(path.toString()))) {
