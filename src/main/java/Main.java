@@ -43,8 +43,8 @@ public class Main {
             }
 
             if(!commands.contains(command) && getPath(command) != null){
-                matchList.addFirst("-c");
-                matchList.addFirst("sh");
+//                matchList.addFirst("-c");
+//                matchList.addFirst("sh");
 //                String[] mand = {"sh", "-c", "echo \"This is inline text\" > myfile.txt && cat myfile.txt"};
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
