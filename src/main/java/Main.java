@@ -43,7 +43,7 @@ public class Main {
             }
 
             if(!commands.contains(command) && getPath(command) != null){
-                System.out.println("matchlist to array" + matchList.toArray(new String[0]).toString());
+                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
                 ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
