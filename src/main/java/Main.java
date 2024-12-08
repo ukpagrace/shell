@@ -20,19 +20,22 @@ public class Main {
 
             String[] string = input.split(" ");
             String command = string[0];
-            String parameter = "";
-
+            StringBuilder parameter = new StringBuilder();
             if(string.length > 2){
                 for(int i = 1; i < string.length; i++){
-                    if(i < string.length - 1){
-                        parameter += string[i] +  " ";
-                    }else{
-                        parameter += string[i];
+                    if(!string[i].isEmpty()){
+                        if(i < string.length - 1){
+                            parameter.append(string[i]).append(" ");
+                        }else{
+                            parameter.append(string[i]);
+                        }
                     }
+
                 }
             }else if(string.length > 1){
-                parameter = string[1];
+                parameter = new StringBuilder(string[1]);
             }
+            System.out.println("parameter" + parameter);
 //            System.out.println("command" + getPath(command));
             if(!commands.contains(command) && getPath(command) != null){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
@@ -48,7 +51,7 @@ public class Main {
             }else{
                 switch(command){
                     case("exit"):
-                        if(parameter.equals("0")){
+                        if(parameter.toString().equals("0")){
                             exit(0);
                         }
                         break;
@@ -57,10 +60,10 @@ public class Main {
                             System.out.println("type: missing argument");
                             continue;
                         }
-                        if(commands.contains(parameter)){
+                        if(commands.contains(parameter.toString())){
                             System.out.print(parameter + " is a shell builtin\n");
                         }else {
-                            String path = getPath(parameter);
+                            String path = getPath(parameter.toString());
                             if (path != null) {
                                 System.out.println(parameter + " is " + path);
                             } else {
@@ -69,7 +72,7 @@ public class Main {
                         }
                         break;
                     case("echo"):
-                        if(parameter.startsWith("'") && parameter.endsWith("'")){
+                        if(parameter.toString().startsWith("'") && parameter.toString().endsWith("'")){
                             System.out.println(parameter.substring(1, parameter.length()-1));
                         }else{
                             System.out.println(parameter);
@@ -83,8 +86,8 @@ public class Main {
 
                         Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
 
-                        Path path = currentWorkingDir.resolve(parameter).toAbsolutePath().normalize();
-                        if(parameter.equals("~")){
+                        Path path = currentWorkingDir.resolve(parameter.toString()).toAbsolutePath().normalize();
+                        if(parameter.toString().equals("~")){
                             System.setProperty("user.dir", System.getenv("HOME"));
                         }
                         else if (Files.isDirectory(Path.of(path.toString()))) {
