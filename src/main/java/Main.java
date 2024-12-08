@@ -75,18 +75,14 @@ public class Main {
                         break;
                     case("cd"):
 
-                        String[] paramArray = parameter.split(" ");
                         Path currentWorkingDir = Paths.get(System.getProperty("user.dir"));
 
-                        for (String s : paramArray) {
-                            Path path = currentWorkingDir.resolve(s).toAbsolutePath().normalize();
-                            if (Files.isDirectory(Path.of(path.toString()))) {
-                                System.setProperty("user.dir", path.toString());
-                            } else {
-                                System.out.println(command + ": " + parameter + ": No such file or directory");
-                            }
+                        Path path = currentWorkingDir.resolve(parameter).toAbsolutePath().normalize();
+                        if (Files.isDirectory(Path.of(path.toString()))) {
+                            System.setProperty("user.dir", path.toString());
+                        } else {
+                            System.out.println(command + ": " + parameter + ": No such file or directory");
                         }
-
                         break;
                     default:
                         System.out.println(input + ": command not found");
