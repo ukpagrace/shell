@@ -44,8 +44,8 @@ public class Main {
             }
 
             if(!commands.contains(command) && getPath(command) != null){
-                System.out.println("matchlist" + matchList);
-                ProcessBuilder processBuilder = new ProcessBuilder(matchList);
+//                System.out.println("matchlist" + matchList);
+                ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
