@@ -33,6 +33,7 @@ public class Main {
             }else if(string.length > 1){
                 parameter = string[1];
             }
+//            System.out.println("command" + getPath(command));
             if(!commands.contains(command) && getPath(command) != null){
                 ProcessBuilder processBuilder = new ProcessBuilder(string);
 
@@ -68,7 +69,12 @@ public class Main {
                         }
                         break;
                     case("echo"):
-                        System.out.println(parameter);
+                        if(parameter.startsWith("'") && parameter.endsWith("'")){
+                            System.out.println(parameter.substring(1, parameter.length()-1));
+                        }else{
+                            System.out.println(parameter);
+                        }
+
                         break;
                     case("pwd"):
                         System.out.println(System.getProperty("user.dir"));
