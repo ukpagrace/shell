@@ -46,7 +46,7 @@ public class Main {
                 matchList.addFirst("-c");
                 matchList.addFirst("czh");
 
-                Process process = Runtime.getRuntime().exec(new String[]{"cat", "/tmp/baz/f   84"});
+                Process process = Runtime.getRuntime().exec(new String[]{"sh", "-c", "cat", "/tmp/baz/f   84"});
                 process.getInputStream().transferTo(System.out);
 
 //                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
