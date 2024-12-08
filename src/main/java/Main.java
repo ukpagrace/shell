@@ -45,8 +45,8 @@ public class Main {
             if(!commands.contains(command) && getPath(command) != null){
                 matchList.addFirst("-c");
                 matchList.addFirst("czh");
-
-                Process process = Runtime.getRuntime().exec(new String[]{"sh", "-c", "cat", "/tmp/baz/f   84"});
+                String[] mand = {"sh", "-c", "echo \"This is inline text\" > myfile.txt && cat myfile.txt"};
+                Process process = Runtime.getRuntime().exec(mand);
                 process.getInputStream().transferTo(System.out);
 
 //                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
