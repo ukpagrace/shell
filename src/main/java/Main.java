@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.exit;
 
@@ -19,32 +21,30 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
-            String[] string = input.split(" ");
-            String command = string[0];
-//            StringBuilder parameter = new StringBuilder();
-            String parameter = input.substring(command.length() + 1);
-//            if(string.length > 2){
-//                for(int i = 1; i < string.length; i++){
-////                    if(!string[i].isEmpty()){
-//                        if(i < string.length - 1){
-//                            parameter.append(string[i]).append(" ");
-//                        }else{
-//                            parameter.append(string[i]);
-//                        }
-////                    }
-//
-//                }
-//            }else if(string.length > 1){
-//                parameter = new StringBuilder(string[1]);
-//            }
+//            String[] string = input.split(" ");
+            List<String> matchList = new ArrayList<String>();
+            Pattern regex = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
+            Matcher regexMatcher = regex.matcher(input);
+            while (regexMatcher.find()) {
+                matchList.add(regexMatcher.group());
+            }
 
-//            System.out.println("parameter" + parameter);
-//            System.out.println("command" + getPath(command));
+            String command = matchList.getFirst();
+            String parameter = "";
+            if(matchList.size() > 2){
+                for(int i = 1; i < matchList.size(); i++){
+                    if(i < matchList.size() - 1){
+                        parameter += matchList.get(i) + (" ");
+                    }else{
+                        parameter += matchList.get(i);
+                    }
+                }
+            }else if(matchList.size() > 1){
+                parameter = matchList.get(1);
+            }
+
             if(!commands.contains(command) && getPath(command) != null){
-                System.out.println("command" + getPath(command));
-                ProcessBuilder processBuilder = new ProcessBuilder(string);
-
-
+                ProcessBuilder processBuilder = new ProcessBuilder(matchList);
                 Process process = processBuilder.start();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -79,18 +79,7 @@ public class Main {
                         if(parameter.startsWith("'") && parameter.endsWith("'")){
                             System.out.println(parameter.substring(1, parameter.length()-1));
                         }else{
-                            String[] value = parameter.split(" ");
-                            StringBuilder output = new StringBuilder();
-                            for(int i = 0; i < value.length; i++){
-                                if(!value[i].isEmpty()){
-                                    if(i < value.length - 1){
-                                        output.append(value[i]).append(" ");
-                                    }else{
-                                        output.append(value[i]);
-                                    }
-                                }
-                            }
-                            System.out.println(output.toString());
+                            System.out.println(parameter);
                         }
 
                         break;
