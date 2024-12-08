@@ -48,7 +48,7 @@ public class Main {
 //                String[] mand = {"sh", "-c", "echo \"This is inline text\" > myfile.txt && cat myfile.txt"};
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
-                Process process = Runtime.getRuntime().exec(stringArray);
+                Process process = Runtime.getRuntime().exec(matchList.toString());
                 process.getInputStream().transferTo(System.out);
 
 //                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
