@@ -58,7 +58,7 @@ public class Main {
                 matchList.removeFirst();
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
-                System.out.println(Arrays.toString(stringArray));
+//                System.out.println(Arrays.toString(stringArray));
                 for(int i = 0; i < stringArray.length; i++){
                     stringArray[i] = stringArray[i].replace("'", "").trim();
                 }
