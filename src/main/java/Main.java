@@ -33,23 +33,32 @@ public class Main {
             if(matchList.size() > 2){
                 for(int i = 1; i < matchList.size(); i++){
                     if(i < matchList.size() - 1){
-                        parameter += matchList.get(i) + (" ");
+                        parameter += matchList.get(i).replace("\"", " ").trim() + (" ");
                     }else{
-                        parameter += matchList.get(i);
+                        parameter += matchList.get(i).replace("\"", " ").trim();
                     }
                 }
             }else if(matchList.size() > 1){
-                parameter = matchList.get(1);
+                parameter = matchList.get(1).replace("\"", " ").trim();
             }
+
+//            System.out.println("parameter " + parameter);
+//            String[] stringArray = new String[matchList.size()];
+//            stringArray = matchList.toArray(stringArray);
+//            for(int i = 0; i < stringArray.length; i++){
+//                    stringArray[i] = stringArray[i].replace("'", "").trim();
+//            }
+//            System.out.println("parameter " + parameter);
 
             if(!commands.contains(command) && getPath(command) != null ){
 //                matchList.addFirst("-c");
 //                matchList.addFirst("sh");
 
+
                 matchList.removeFirst();
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
-
+                System.out.println(Arrays.toString(stringArray));
                 for(int i = 0; i < stringArray.length; i++){
                     stringArray[i] = stringArray[i].replace("'", "").trim();
                 }
@@ -98,6 +107,12 @@ public class Main {
                         }
                         break;
                     case("echo"):
+
+//                        String[] arguments = parameter.split(" ");
+//                        for(int i = 0; i < arguments.length; i++){
+//                            arguments[i] = arguments[i].replace("\"", "");
+//                        }
+//                        System.out.println(Arrays.toString(arguments));
                         if(parameter.startsWith("'") && parameter.endsWith("'")){
                             System.out.println(parameter.substring(1, parameter.length()-1));
                         }else{
