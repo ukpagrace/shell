@@ -20,7 +20,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
-//            String[] string = input.split(" ");
             List<String> matchList = new ArrayList<String>();
             Pattern regex = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
             Matcher regexMatcher = regex.matcher(input);
@@ -42,11 +41,10 @@ public class Main {
                 parameter = matchList.get(1);
             }
 
-            if(!commands.contains(command) && getPath(command) != null){
-                matchList.addFirst("-c");
-                matchList.addFirst("sh");
-//                String[] mand = {"sh", "-c", "echo \"This is inline text\" > myfile.txt && cat myfile.txt"};
-//                System.out.println("match" + String.join(",", matchList));
+            if(!commands.contains(command) && getPath(command) != null ){
+//                matchList.addFirst("-c");
+//                matchList.addFirst("sh");
+
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
                 Process process = Runtime.getRuntime().exec(String.join(" ", matchList));
