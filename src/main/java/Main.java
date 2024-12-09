@@ -46,7 +46,7 @@ public class Main {
 //                matchList.addFirst("-c");
 //                matchList.addFirst("sh");
 
-
+                matchList.removeFirst();
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
 
