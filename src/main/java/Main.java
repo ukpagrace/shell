@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static java.lang.System.exit;
 
@@ -45,10 +46,23 @@ public class Main {
 //                matchList.addFirst("-c");
 //                matchList.addFirst("sh");
 
+
                 String[] stringArray = new String[matchList.size()];
                 stringArray = matchList.toArray(stringArray);
-                Process process = Runtime.getRuntime().exec(String.join(" ", matchList));
-                process.getInputStream().transferTo(System.out);
+
+                for(int i = 0; i < stringArray.length; i++){
+                    stringArray[i] = stringArray[i].replace("'", "").trim();
+                }
+                Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
+                var commandArguments = Stream.concat(
+                        Stream.of(getPath(command)),
+                        Arrays.stream(stringArray)
+                ).toList();
+                Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
+                process.waitFor();
+//                Process process = Runtime.getRuntime().exec(String.join(" ", stringArray));
+//                process.getInputStream().transferTo(System.out);
+
 
 //                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
 //                ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
