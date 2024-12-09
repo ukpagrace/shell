@@ -49,6 +49,28 @@ public class Main {
 //                    stringArray[i] = stringArray[i].replace("'", "").trim();
 //            }
 //            System.out.println("parameter " + parameter);
+//            matchList.removeFirst();
+//            String[] stringArray = new String[matchList.size()];
+//            stringArray = matchList.toArray(stringArray);
+////                System.out.println(Arrays.toString(stringArray));
+//            for(int i = 0; i < stringArray.length; i++){
+//                if(stringArray[i].startsWith("'")){
+//                    stringArray[i] = stringArray[i].replace("'", "").trim();
+//                }else{
+//                    stringArray[i] = stringArray[i].replace("\"", "").trim();
+//                }
+//
+//            }
+////            '/tmp/foo/f   56' '/tmp/foo/f   52' '/tmp/foo/f   21'
+//            System.out.println("string array" + Arrays.toString(stringArray));
+//
+////            .replace("\"", "")
+//            Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
+//            var commandArguments = Stream.concat(
+//                    Stream.of(getPath(command)),
+//                    Arrays.stream(stringArray)
+//            ).toList();
+//            System.out.println("command string" + Arrays.toString(commandArguments.toArray()));
 
             if(!commands.contains(command) && getPath(command) != null ){
 //                matchList.addFirst("-c");
@@ -60,7 +82,12 @@ public class Main {
                 stringArray = matchList.toArray(stringArray);
 //                System.out.println(Arrays.toString(stringArray));
                 for(int i = 0; i < stringArray.length; i++){
-                    stringArray[i] = stringArray[i].replace("'", "").trim();
+                    if(stringArray[i].startsWith("'")){
+                        stringArray[i] = stringArray[i].replace("'", "").trim();
+                    }else{
+                        stringArray[i] = stringArray[i].replace("\"", "").trim();
+                    }
+
                 }
                 Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
                 var commandArguments = Stream.concat(
