@@ -65,7 +65,7 @@ public class Main {
                   }
                   i++;
               }
-            System.out.println("params " + parameters.toString());
+//            System.out.println("params " + parameters.toString());
               String command = parameters.getFirst();
 
 
