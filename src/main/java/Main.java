@@ -39,7 +39,8 @@ public class Main {
                     while(i < input.length() && input.charAt(i) != '"'){
                         if(input.charAt(i) == '\\' && (input.charAt(i+1) == '\\' ||
                             input.charAt(i+1) == '$' ||
-                            input.charAt(i+1) == '"')
+                            input.charAt(i+1) == '"' ||
+                            input.charAt(i+1) == '\n')
                         ){
                             i++;
                             sb.append(input.charAt(i));
@@ -64,6 +65,7 @@ public class Main {
                   }
                   i++;
               }
+            System.out.println("params " + parameters.toString());
               String command = parameters.getFirst();
 
 
