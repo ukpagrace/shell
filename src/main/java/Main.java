@@ -20,97 +20,65 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
+            int i = 0;
+            ArrayList<String> parameters = new ArrayList<>();
 
-            List<String> matchList = new ArrayList<String>();
-            Pattern regex = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
-            Matcher regexMatcher = regex.matcher(input);
-            while (regexMatcher.find()) {
-                matchList.add(regexMatcher.group());
-            }
+            StringBuilder sb;
 
-            String command = matchList.getFirst();
-            String parameter = "";
-            if(matchList.size() > 2){
-                for(int i = 1; i < matchList.size(); i++){
-                    if(i < matchList.size() - 1){
-                        parameter += matchList.get(i).replace("\"", " ").trim() + (" ");
-                    }else{
-                        parameter += matchList.get(i).replace("\"", " ").trim();
+              while(i < input.length()){
+                if(input.charAt(i) == '\''){
+                    i++;
+                    sb = new StringBuilder();
+                    while(i < input.length() && input.charAt(i) != '\''){
+                            sb.append(input.charAt(i++));
                     }
-                }
-            }else if(matchList.size() > 1){
-                parameter = matchList.get(1).replace("\"", " ").trim();
-            }
+                    parameters.add(sb.toString());
+                }else if( input.charAt(i) == '"'){
+                    i++;
+                    sb = new StringBuilder();
+                    while(i < input.length() && input.charAt(i) != '"'){
+                        if(input.charAt(i) == '\\' && (input.charAt(i+1) == '\\' ||
+                            input.charAt(i+1) == '$' ||
+                            input.charAt(i+1) == '"')
+                        ){
+                            i++;
+                            sb.append(input.charAt(i));
+                        }else{
+                            sb.append(input.charAt(i));
+                        }
+                        i++;
+                    }
+                    parameters.add(sb.toString());
+                }else if(!Character.isWhitespace(input.charAt(i)) && input.charAt(i) != '\'' && input.charAt(i) != '"'  ){
+                        sb = new StringBuilder();
+                      while(i < input.length() && !Character.isWhitespace(input.charAt(i))){
+                          if(input.charAt(i) == '\\'){
+                              i++;
+                              sb.append(input.charAt(i));
+                          }else{
+                              sb.append(input.charAt(i));
+                          }
+                          i++;
+                      }
+                      parameters.add(sb.toString());
+                  }
+                  i++;
+              }
+              String command = parameters.getFirst();
 
-//            System.out.println("parameter " + parameter);
-//            String[] stringArray = new String[matchList.size()];
-//            stringArray = matchList.toArray(stringArray);
-//            for(int i = 0; i < stringArray.length; i++){
-//                    stringArray[i] = stringArray[i].replace("'", "").trim();
-//            }
-//            System.out.println("parameter " + parameter);
-//            matchList.removeFirst();
-//            String[] stringArray = new String[matchList.size()];
-//            stringArray = matchList.toArray(stringArray);
-////                System.out.println(Arrays.toString(stringArray));
-//            for(int i = 0; i < stringArray.length; i++){
-//                if(stringArray[i].startsWith("'")){
-//                    stringArray[i] = stringArray[i].replace("'", "").trim();
-//                }else{
-//                    stringArray[i] = stringArray[i].replace("\"", "").trim();
-//                }
-//
-//            }
-////            '/tmp/foo/f   56' '/tmp/foo/f   52' '/tmp/foo/f   21'
-//            System.out.println("string array" + Arrays.toString(stringArray));
-//
-////            .replace("\"", "")
-//            Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
-//            var commandArguments = Stream.concat(
-//                    Stream.of(getPath(command)),
-//                    Arrays.stream(stringArray)
-//            ).toList();
-//            System.out.println("command string" + Arrays.toString(commandArguments.toArray()));
 
             if(!commands.contains(command) && getPath(command) != null ){
-//                matchList.addFirst("-c");
-//                matchList.addFirst("sh");
-
-
-                matchList.removeFirst();
-                String[] stringArray = new String[matchList.size()];
-                stringArray = matchList.toArray(stringArray);
-//                System.out.println(Arrays.toString(stringArray));
-                for(int i = 0; i < stringArray.length; i++){
-                    if(stringArray[i].startsWith("'")){
-                        stringArray[i] = stringArray[i].replace("'", "").trim();
-                    }else{
-                        stringArray[i] = stringArray[i].replace("\"", "").trim();
-                    }
-
-                }
                 Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
-                var commandArguments = Stream.concat(
-                        Stream.of(getPath(command)),
-                        Arrays.stream(stringArray)
-                ).toList();
-                Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
+//                var commandArguments = Stream.concat(
+//                        Stream.of(getPath(command)),
+//                        Arrays.stream(stringArray)
+//                ).toList();
+                Process process = new ProcessBuilder(parameters).inheritIO().directory(workingDirectory.toFile()).start();
                 process.waitFor();
-//                Process process = Runtime.getRuntime().exec(String.join(" ", stringArray));
-//                process.getInputStream().transferTo(System.out);
 
-
-//                System.out.println("matchlist to array" + Arrays.toString(matchList.toArray(new String[0])));
-//                ProcessBuilder processBuilder = new ProcessBuilder(matchList.toArray(new String[0]));
-//                Process process = processBuilder.start();
-//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//                String line;
-//                System.out.println("line" + bufferedReader.readLine());
-//                while((line = bufferedReader.readLine())!= null){
-//                    System.out.println(line);
-//                }
             }else{
+                parameters.removeFirst();
+                String parameter = String.join(" ", parameters);
                 switch(command){
                     case("exit"):
                         if(parameter.equals("0")){
@@ -134,18 +102,7 @@ public class Main {
                         }
                         break;
                     case("echo"):
-
-//                        String[] arguments = parameter.split(" ");
-//                        for(int i = 0; i < arguments.length; i++){
-//                            arguments[i] = arguments[i].replace("\"", "");
-//                        }
-//                        System.out.println(Arrays.toString(arguments));
-                        if(parameter.startsWith("'") && parameter.endsWith("'")){
-                            System.out.println(parameter.substring(1, parameter.length()-1));
-                        }else{
-                            System.out.println(parameter);
-                        }
-
+                        System.out.println(parameter);
                         break;
                     case("pwd"):
                         System.out.println(System.getProperty("user.dir"));
