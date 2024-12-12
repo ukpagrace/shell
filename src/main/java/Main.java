@@ -45,10 +45,14 @@ public class Main {
                             sb.append(input.charAt(i));
                         }else if(input.charAt(i) == '\\' && input.charAt(i+1) == '"'){
                             i++;
+                            sb.append(input.charAt(i));
                             while (i < input.length() - 1 && !(input.charAt(i) == '\\' && input.charAt(i + 1) == '"')){
+                                if(input.charAt(i) == '"') i++;
                                 sb.append(input.charAt(i));
                                 i++;
                             }
+                            i++;
+                            sb.append(input.charAt(i));
 
                         }
                         else{
