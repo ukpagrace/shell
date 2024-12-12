@@ -23,47 +23,38 @@ public class Main {
             int i = 0;
             ArrayList<String> parameters = new ArrayList<>();
 
-            StringBuilder sb;
+            StringBuilder sb = new StringBuilder();;
 
               while(i < input.length()){
                 if(input.charAt(i) == '\''){
                     i++;
-                    sb = new StringBuilder();
                     while(i < input.length() && input.charAt(i) != '\''){
                             sb.append(input.charAt(i++));
                     }
-                    parameters.add(sb.toString());
-                }else if( input.charAt(i) == '"'){
                     i++;
-                    sb = new StringBuilder();
+//                    parameters.add(sb.toString());
+                }
+                if(i < input.length() && input.charAt(i) == '"'){
+                    i++;
                     while(i < input.length() && input.charAt(i) != '"'){
                         if(input.charAt(i) == '\\' && (input.charAt(i+1) == '\\' ||
+                            input.charAt(i+1) == '"' ||
                             input.charAt(i+1) == '$' ||
                             input.charAt(i+1) == '\n')
                         ){
                             i++;
                             sb.append(input.charAt(i));
-                        }else if(input.charAt(i) == '\\' && input.charAt(i+1) == '"'){
-                            i++;
-                            sb.append(input.charAt(i));
-                            while (i < input.length() - 1 && !(input.charAt(i) == '\\' && input.charAt(i + 1) == '"')){
-                                if(input.charAt(i) == '"') i++;
-                                sb.append(input.charAt(i));
-                                i++;
-                            }
-                            i++;
-                            sb.append(input.charAt(i));
-
                         }
                         else{
                             sb.append(input.charAt(i));
                         }
                         i++;
                     }
-                    parameters.add(sb.toString());
-                }else if(!Character.isWhitespace(input.charAt(i)) && input.charAt(i) != '\'' && input.charAt(i) != '"'  ){
-                        sb = new StringBuilder();
+                    i++;
+                }
+                if(i < input.length() && !Character.isWhitespace(input.charAt(i))){
                       while(i < input.length() && !Character.isWhitespace(input.charAt(i))){
+
                           if(input.charAt(i) == '\\'){
                               i++;
                               sb.append(input.charAt(i));
@@ -72,10 +63,17 @@ public class Main {
                           }
                           i++;
                       }
-                      parameters.add(sb.toString());
-                  }
+//                      parameters.add(sb.toString());
+                }
+
+                if(!sb.isEmpty()){
+                    parameters.add(sb.toString());
+                    sb = new StringBuilder();
+
+                }
                   i++;
               }
+
 //            System.out.println("params " + parameters.toString());
               String command = parameters.getFirst();
 
