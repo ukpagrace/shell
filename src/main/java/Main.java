@@ -39,12 +39,19 @@ public class Main {
                     while(i < input.length() && input.charAt(i) != '"'){
                         if(input.charAt(i) == '\\' && (input.charAt(i+1) == '\\' ||
                             input.charAt(i+1) == '$' ||
-                            input.charAt(i+1) == '"' ||
                             input.charAt(i+1) == '\n')
                         ){
                             i++;
                             sb.append(input.charAt(i));
-                        }else{
+                        }else if(input.charAt(i) == '\\' && input.charAt(i+1) == '"'){
+                            i++;
+                            while (i < input.length() - 1 && !(input.charAt(i) == '\\' && input.charAt(i + 1) == '"')){
+                                sb.append(input.charAt(i));
+                                i++;
+                            }
+
+                        }
+                        else{
                             sb.append(input.charAt(i));
                         }
                         i++;
