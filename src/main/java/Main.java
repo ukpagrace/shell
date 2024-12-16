@@ -1,13 +1,7 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import static java.lang.System.exit;
 
@@ -32,7 +26,6 @@ public class Main {
                             sb.append(input.charAt(i++));
                     }
                     i++;
-//                    parameters.add(sb.toString());
                 }
                 if(i < input.length() && input.charAt(i) == '"'){
                     i++;
@@ -63,27 +56,20 @@ public class Main {
                           }
                           i++;
                       }
-//                      parameters.add(sb.toString());
                 }
 
                 if(!sb.isEmpty()){
                     parameters.add(sb.toString());
                     sb = new StringBuilder();
-
                 }
                   i++;
               }
 
-//            System.out.println("params " + parameters.toString());
               String command = parameters.getFirst();
 
 
             if(!commands.contains(command) && getPath(command) != null ){
                 Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
-//                var commandArguments = Stream.concat(
-//                        Stream.of(getPath(command)),
-//                        Arrays.stream(stringArray)
-//                ).toList();
                 Process process = new ProcessBuilder(parameters).inheritIO().directory(workingDirectory.toFile()).start();
                 process.waitFor();
 
